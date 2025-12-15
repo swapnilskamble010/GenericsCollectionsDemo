@@ -8,7 +8,9 @@ public abstract class Platform {
         System.out.println("Refresh Rate");
     }
 
-    public abstract Button createButton();
+//    public abstract Button createButton();
+    //NO NO NO! HOLD on PLEASE!
+//    public abstract Dropdown createDropdown();
 
-    public abstract Dropdown createDropdown();
+    public abstract UIComponentFactory createUIComponentFactory();
 }

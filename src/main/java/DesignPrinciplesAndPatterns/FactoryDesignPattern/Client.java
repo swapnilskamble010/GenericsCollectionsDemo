@@ -1,31 +1,32 @@
 package DesignPrinciplesAndPatterns.FactoryDesignPattern;
 
-//import DesignPrinciplesAndPatterns.FactoryDesignPattern.components.Button.AndroidButton;
 import DesignPrinciplesAndPatterns.FactoryDesignPattern.components.Button.Button;
-//import DesignPrinciplesAndPatterns.FactoryDesignPattern.components.Button.IOSButton;
-//import DesignPrinciplesAndPatterns.FactoryDesignPattern.components.Dropdown.AndroidDropdown;
 import DesignPrinciplesAndPatterns.FactoryDesignPattern.components.Dropdown.Dropdown;
-//import DesignPrinciplesAndPatterns.FactoryDesignPattern.components.Dropdown.IOSDropdown;
+import java.util.Scanner;
 
 public class Client {
+    private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
-        Platform platform = new IOS();
-        //Bases on platform, we want to create new buttons
-        Button button = platform.createButton();
-//        if(platform instanceof Android){
-//            button = new AndroidButton();
-//        } else if(platform instanceof IOS){
-//            button = new IOSButton();
+        String platformName = scanner.nextLine();
+
+        Platform platform = PlatformFactory.getPlatformByName(platformName);
+
+//        if(platformName.equals("Android")){
+//            platform = new Android();
+//        } else if(platformName.equals("iOS")){
+//            platform = new IOS();
+//        } else {
+//            throw new IllegalArgumentException("Platform name not valid, please select Android or iOS");
 //        }
+        //Bases on platform we first create factory
+        UIComponentFactory componentFactory = platform.createUIComponentFactory();
+
+        Button button = componentFactory.createButton();
         button.click();
 
-
-        Dropdown dropdown = platform.createDropdown();
-//        if(platform instanceof Android){
-//            dropdown = new AndroidDropdown();
-//        } else if(platform instanceof IOS){
-//            dropdown = new IOSDropdown();
-//        }
+        Dropdown dropdown = componentFactory.createDropdown();
         dropdown.showOptions();
+
+        //Option 2: Move if-else to a dedicated class
     }
 }
